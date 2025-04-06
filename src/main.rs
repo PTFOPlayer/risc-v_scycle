@@ -1,6 +1,7 @@
 pub mod memory;
 pub mod regfile;
 pub mod alu;
+pub mod signext;
 
 use rust_hdl::prelude::*;
 
