@@ -5,12 +5,18 @@ use crate::WORDS;
 #[derive(LogicBlock)]
 pub struct Memory {
     pub clock: Signal<In, Clock>,
+    
+    // reset bit
     pub rst_n: Signal<In, Bit>,
 
+    // target addr
     pub address: Signal<In, Bits<32>>,
+    
+    // data written to addr
     pub write_data: Signal<In, Bits<32>>,
     pub write_enable: Signal<In, Bit>,
 
+    // read_data, always set to whatever is behind addr
     pub read_data: Signal<Out, Bits<32>>,
 
     pub mem: Vec<Signal<Local, Bits<32>>>,
@@ -33,6 +39,7 @@ impl Default for Memory {
 impl Logic for Memory {
     #[hdl_gen]
     fn update(&mut self) {
+        // if rst_n zero out memory
         if self.rst_n.val() == false {
             for i in 0..self.mem.len() {
                 self.mem[i].next = 0.into();

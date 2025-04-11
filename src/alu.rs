@@ -4,6 +4,7 @@ use rust_hdl::prelude::*;
 pub struct Alu {
     pub clock: Signal<In, Clock>,
 
+    // simple sum
     pub alu_control: Signal<In, Bits<3>>,
     pub src1: Signal<In, Bits<32>>,
     pub src2: Signal<In, Bits<32>>,
@@ -58,12 +59,11 @@ mod alu_test {
             wait_clock_cycles!(ep, clock, x, 1);
 
             assert_eq!(x.result.val(), 30);
-            
+
             // clear
             x.src1.next = 0.into();
             x.src2.next = 0.into();
             wait_clock_cycles!(ep, clock, x, 1);
-
 
             // test default
             x.alu_control.next = 0b111.into();
@@ -71,7 +71,6 @@ mod alu_test {
             x.src2.next = 20.into();
             wait_clock_cycles!(ep, clock, x, 1);
             assert_eq!(x.result.val(), 0);
-            
 
             ep.done(x)
         });

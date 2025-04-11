@@ -8,6 +8,7 @@ pub struct Regfile {
     pub rst_n: Signal<In, Bit>,
 
     // Read
+    // addr1 & addr2 of regs to read
     pub address1: Signal<In, Bits<5>>,
     pub address2: Signal<In, Bits<5>>,
     pub read_data1: Signal<Out, Bits<32>>,
@@ -15,6 +16,7 @@ pub struct Regfile {
 
     //write
     pub write_enable: Signal<In, Bit>,
+    // addr of reg to write
     pub address3: Signal<In, Bits<5>>,
     pub write_data: Signal<In, Bits<32>>,
 

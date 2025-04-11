@@ -1,15 +1,17 @@
-use std::ops::{BitOr, BitOrAssign};
-
 use rust_hdl::prelude::*;
 
 #[derive(LogicBlock)]
 pub struct SignExt {
     pub clock: Signal<In, Clock>,
 
+    // raw instruction 
     pub raw: Signal<In, Bits<25>>,
+    // position of imm
     pub imm_src: Signal<In, Bits<2>>,
+    // sign extended imm
     pub immediate: Signal<Out, Bits<32>>,
 
+    // temporary field for imm
     gathered_imm: Signal<Local, Bits<12>>,
 }
 
